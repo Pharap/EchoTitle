@@ -1,7 +1,6 @@
 #pragma once
 
 uint8_t Time;
-short int wind = 0;
 
 struct Particle{
   uint8_t x;
@@ -11,11 +10,10 @@ struct Particle{
 };
 
 void Title(){
-  Particle Parts[5];
+  Particle Parts[10];
   
   if (ard.everyXFrames(30))
     {
-    wind = random(-1,2);  
     Time += 1;
     if (Time == 12) Time = 1;
     }
@@ -41,10 +39,10 @@ void Title(){
     
     for (uint8_t i=0;i<5;i++){
       if (Parts[i].active){
-        Parts[i].x += wind;
         if (ard.everyXFrames(15))
           Parts[i].flicker = !Parts[i].flicker;
-        Parts[i].y += 1;
+        if (ard.everyXFrames(2))  
+          Parts[i].y += 1;
         if (Parts[i].y >= 66 || Parts[i].x > 127) {
           Parts[i].active = false;
         } else {
