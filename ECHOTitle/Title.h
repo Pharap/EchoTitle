@@ -9,7 +9,7 @@ struct Particle{
   bool active;
 };
 
-void Title(){
+void __attribute__ ((noinline)) Title(){
   Particle Parts[10];
   
   if (ard.everyXFrames(30))
