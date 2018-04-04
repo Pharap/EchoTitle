@@ -7,8 +7,6 @@ Sprites sprites;
 
 void __attribute__ ((noinline)) FakeCalculations(void)
 {
-	// marked volatile to disable optimisations
-	// for demonstration purposes
 	uint16_t values[20];
   
 	for(uint8_t i = 0; i < 20; ++i)
