@@ -1,18 +1,21 @@
 #pragma once
 
 uint8_t Time;
+short int wind = 0;
 
 struct Particle{
   uint8_t x;
   uint8_t y;
+  bool flicker;
   bool active;
 };
 
 void Title(){
   Particle Parts[5];
-  const short int wind = -1;
+  
   if (ard.everyXFrames(30))
     {
+    wind = random(-1,2);  
     Time += 1;
     if (Time == 12) Time = 1;
     }
@@ -32,17 +35,20 @@ void Title(){
         Parts[i].x = random(125);
         Parts[i].y = 0;
         Parts[i].active = true;
+        Parts[i].flicker = random(0,2);
       }
     }
     
     for (uint8_t i=0;i<5;i++){
       if (Parts[i].active){
         Parts[i].x += wind;
+        if (ard.everyXFrames(15))
+          Parts[i].flicker = !Parts[i].flicker;
         Parts[i].y += 1;
         if (Parts[i].y >= 66 || Parts[i].x > 127) {
           Parts[i].active = false;
         } else {
-          sprites.drawSelfMasked(Parts[i].x,Parts[i].y-4,Dust,0);
+          sprites.drawSelfMasked(Parts[i].x,Parts[i].y-4,Dust,static_cast<uint8_t>(Parts[i].flicker));
         }
       }
     }
